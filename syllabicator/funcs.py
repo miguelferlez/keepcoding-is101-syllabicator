@@ -48,6 +48,7 @@ def split(word:str):
             elif (prev_char in CONSONANTS or prev_char == 'y') and not was_prefix:
                 vowel_pos.append(index-1)
             elif is_triphthong(char, prev_char, word[index-2]):
+                was_diphthong = False
                 was_triphthong = True
                 vowel_pos.pop(-1)
             elif is_diphthong(char, prev_char) or word[-1] == 'y':
@@ -60,9 +61,11 @@ def split(word:str):
             if char == 'n' or char == 's':
                 if index == len(word)-1 and not was_triphthong:
                     vowel_pos.pop(-1)
-                if index == 1 and (prev_char in VOWELS or was_diphthong):
+                elif index == 1 and prev_char == 'i':
                     was_prefix = True
                     vowel_pos.append(index+1)
+                elif index != 2 and was_diphthong:
+                    vowel_pos.pop(-1)
             was_triphthong = False
             was_diphthong = False    
         prev_char = char
@@ -85,3 +88,5 @@ if __name__ == '__main__':
     split('fluye')
     split('cienpies')
     split('yegua')
+    split('anfibio')
+    split('untado')
