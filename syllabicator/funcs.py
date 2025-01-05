@@ -97,6 +97,15 @@ def split_phrase(phrase:str)->str:
     print(result.strip())
     return result.strip()
 
+def intercalate(phrase:str, prev_syllable:str)->str:
+    result = ''
+    words = phrase.split()
+    for word in words:
+        syllable = f'{prev_syllable}'.join(split(word))
+        result += prev_syllable + syllable + ' '
+    print(result.strip())
+    return result.strip()
+
 if __name__ == '__main__':
     split('inaccion')
     split('paraguay')
@@ -109,3 +118,5 @@ if __name__ == '__main__':
     split('untado')
 
     split_phrase('hola, mundo!')
+
+    intercalate('hola, me llamo ramón!', 'pi')

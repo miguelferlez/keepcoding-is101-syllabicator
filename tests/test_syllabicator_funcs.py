@@ -1,4 +1,4 @@
-from syllabicator.funcs import is_word, split, split_phrase
+from syllabicator.funcs import is_word, split, split_phrase, intercalate
 import pytest
 
 def test_split():
@@ -49,3 +49,6 @@ def test_split_phrase():
     assert split_phrase('Hola, mundo!') == 'Ho la, mun do!'
     assert split_phrase('¿quieres un vaso de agua?') == '¿qui e res un va so de a gua ?'
     assert split_phrase('HAS VISTO') == 'HAS VIS TO'
+
+def test_intercalate():
+    assert intercalate('hola, me llamo ramón!', 'pi') == 'pihopila, pime pillapimo pirapimón!'
