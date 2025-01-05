@@ -88,7 +88,14 @@ def split(word:str)->list[str]:
 
     return syllables
 
-
+def split_phrase(phrase:str)->str:
+    result = ''
+    words = phrase.split()
+    for word in words:
+        syllable = ' '.join(split(word))
+        result += syllable + ' '
+    print(result.strip())
+    return result.strip()
 
 if __name__ == '__main__':
     split('inaccion')
@@ -101,4 +108,4 @@ if __name__ == '__main__':
     split('anfibio')
     split('untado')
 
-    print(is_word('R2D2'))
+    split_phrase('hola, mundo!')

@@ -1,4 +1,4 @@
-from syllabicator.funcs import is_word, split
+from syllabicator.funcs import is_word, split, split_phrase
 import pytest
 
 def test_split():
@@ -44,3 +44,8 @@ def test_valid_word():
         is_word('hola!')
     with pytest.raises(ValueError):
         is_word('Hola, mundo!')
+
+def test_split_phrase():
+    assert split_phrase('Hola, mundo!') == 'Ho la, mun do!'
+    assert split_phrase('¿quieres un vaso de agua?') == '¿qui e res un va so de a gua ?'
+    assert split_phrase('HAS VISTO') == 'HAS VIS TO'
