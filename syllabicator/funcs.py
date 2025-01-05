@@ -1,8 +1,16 @@
 CONSONANTS = ['b', 'c', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 'll', 'm', 'n', 'ñ', 'p', 'q', 'r', 's', 't', 'v', 'w', 'x', 'z']
 OPEN_VOWELS = ['a', 'e', 'o', 'á', 'é', 'ó', 'ú']
+SEMIVOWEL = ['y']
 CLOSE_VOWELS = ['i', 'í', 'u', 'ü']
-SEMIVOWEL = 'y'
 CONSONANT_PAIRS = ['bl', 'br', 'ch', 'cl', 'cr', 'dr', 'gl', 'gr', 'kl', 'kr', 'll', 'pl', 'pr', 'rr', 'tl', 'tr']
+
+def is_word(word:str)->bool:
+    ALPHABET = CONSONANTS + SEMIVOWEL + OPEN_VOWELS + CLOSE_VOWELS
+    is_word = True
+    for char in word.lower():
+        if char not in ALPHABET:
+            raise ValueError(f"cannot split word in syllables, '{word}' contains invalid characters")
+    return is_word
 
 def is_diphthong(vowel:str, prev_vowel:str)->bool:
     is_diphthong = False
@@ -31,15 +39,15 @@ def is_consonant_pair(char:str, prev_char:str)->bool:
 
     return char_pair in CONSONANT_PAIRS
 
-def split(word:str):
+def split(word:str)->list[str]:
     VOWELS = OPEN_VOWELS + CLOSE_VOWELS
-    result = []
-    prev_char = ''
+    syllables = []
     vowel_pos = []
-    current_pos = 0
+    prev_char = ''
     was_triphthong = False
     was_diphthong = False
     was_prefix = False
+    current_pos = 0
 
     for index, char in enumerate(word.lower()):
         if char in VOWELS or char == 'y':
@@ -71,14 +79,16 @@ def split(word:str):
         prev_char = char
 
     for pos in vowel_pos[1:]:
-        result.append(word[current_pos:pos])
+        syllables.append(word[current_pos:pos])
         current_pos = pos
 
-    result.append(word[current_pos:len(word)])
-    result = list(filter(None, result))
-    # print(vowel_pos)
-    print(result)
-    return result
+    syllables.append(word[current_pos:len(word)])
+    syllables = list(filter(None, syllables))
+    # result = ' '.join(syllables)
+
+    return syllables
+
+
 
 if __name__ == '__main__':
     split('inaccion')
@@ -90,3 +100,5 @@ if __name__ == '__main__':
     split('yegua')
     split('anfibio')
     split('untado')
+
+    print(is_word('R2D2'))

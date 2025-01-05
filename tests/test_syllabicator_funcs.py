@@ -1,4 +1,5 @@
-from syllabicator.funcs import split
+from syllabicator.funcs import is_word, split
+import pytest
 
 def test_split():
     assert split('elefante') == ['e', 'le', 'fan', 'te']
@@ -29,3 +30,17 @@ def test_split_consonant_pairs():
     assert split('imposible') == ['im', 'po', 'si', 'ble']
     assert split('imperfecto') == ['im', 'per', 'fec', 'to']
     assert split('fluye') == ['flu', 'ye']
+
+def test_valid_word():
+    assert is_word('constante') == True
+    assert is_word('Inacción') == True
+    assert is_word('CAUCHO') == True
+
+    with pytest.raises(ValueError):
+        is_word('R2D2')
+    with pytest.raises(ValueError):
+        is_word('has visto')
+    with pytest.raises(ValueError):
+        is_word('hola!')
+    with pytest.raises(ValueError):
+        is_word('Hola, mundo!')
