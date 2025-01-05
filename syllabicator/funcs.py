@@ -106,6 +106,24 @@ def intercalate(phrase:str, prev_syllable:str)->str:
     print(result.strip())
     return result.strip()
 
+def deintercalate(phrase:str, inter_syllable:str)->str:
+    result = ''
+    words = phrase.split()
+    decrypted_words =[]
+    
+    for word in words:
+        decrypted_syllable = ''
+        syllables = split(word)
+        for index, syllable in enumerate(syllables):
+            if index % 2 != 0 or syllable != inter_syllable:
+                decrypted_syllable += syllable
+        decrypted_words.append(decrypted_syllable)
+    
+    for word in decrypted_words:
+        result += word + ' '
+    print(result.strip())
+    return result.strip()
+
 if __name__ == '__main__':
     split('inaccion')
     split('paraguay')
@@ -120,3 +138,5 @@ if __name__ == '__main__':
     split_phrase('hola, mundo!')
 
     intercalate('hola, me llamo ramón!', 'pi')
+
+    deintercalate('pihopila, pime pillapimo pirapimón!', 'pi')
