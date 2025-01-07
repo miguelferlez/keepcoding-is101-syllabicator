@@ -91,19 +91,21 @@ def split(word:str)->list[str]:
 def split_phrase(phrase:str)->str:
     result = ''
     words = phrase.split()
+    
     for word in words:
         syllable = ' '.join(split(word))
         result += syllable + ' '
-    print(result.strip())
+    
     return result.strip()
 
 def intercalate(phrase:str, prev_syllable:str)->str:
     result = ''
     words = phrase.split()
+
     for word in words:
         syllable = f'{prev_syllable}'.join(split(word))
         result += prev_syllable + syllable + ' '
-    print(result.strip())
+
     return result.strip()
 
 def deintercalate(phrase:str, inter_syllable:str)->str:
@@ -121,22 +123,5 @@ def deintercalate(phrase:str, inter_syllable:str)->str:
     
     for word in decrypted_words:
         result += word + ' '
-    print(result.strip())
+
     return result.strip()
-
-if __name__ == '__main__':
-    split('inaccion')
-    split('paraguay')
-    split('cambiéis')
-    split('miau')
-    split('fluye')
-    split('cienpies')
-    split('yegua')
-    split('anfibio')
-    split('untado')
-
-    split_phrase('hola, mundo!')
-
-    intercalate('hola, me llamo ramón!', 'pi')
-
-    deintercalate('pihopila, pime pillapimo pirapimón!', 'pi')
