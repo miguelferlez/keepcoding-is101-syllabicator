@@ -50,8 +50,10 @@ def test_split_phrase():
     assert split_phrase('¿quieres un vaso de agua?') == '¿qui e res un va so de a gua ?'
     assert split_phrase('HAS VISTO') == 'HAS VIS TO'
 
-def test_intercalate():
+def test_intercalate_pi():
     assert intercalate('hola, me llamo ramón!', 'pi') == 'pihopila, pime pillapimo pirapimón!'
+    assert intercalate('constante', 'pi') == 'piconspitanpite'
 
-def test_deintercalate():
+def test_deintercalate_pi():
     assert deintercalate('pihopila, pime pillapimo pirapimón!', 'pi') == 'hola, me llamo ramón!'
+    assert deintercalate('piconspitanpite', 'pi') == 'constante'

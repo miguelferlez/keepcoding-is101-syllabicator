@@ -98,30 +98,42 @@ def split_phrase(phrase:str)->str:
     
     return result.strip()
 
-def intercalate(phrase:str, prev_syllable:str)->str:
+def intercalate(phrase:str, inter_syllable:str)->str:
     result = ''
-    words = phrase.split()
+    if len(phrase.split()) > 1:
+        words = phrase.split()
 
-    for word in words:
-        syllable = f'{prev_syllable}'.join(split(word))
-        result += prev_syllable + syllable + ' '
+        for word in words:
+            syllable = f'{inter_syllable}'.join(split(word))
+            result += inter_syllable + syllable + ' '
+    else:
+        word = split(phrase)
+        for syllable in word:
+            result += inter_syllable + syllable
+
 
     return result.strip()
 
 def deintercalate(phrase:str, inter_syllable:str)->str:
     result = ''
-    words = phrase.split()
-    decrypted_words =[]
-    
-    for word in words:
-        decrypted_syllable = ''
-        syllables = split(word)
-        for index, syllable in enumerate(syllables):
-            if index % 2 != 0 or syllable != inter_syllable:
-                decrypted_syllable += syllable
-        decrypted_words.append(decrypted_syllable)
-    
-    for word in decrypted_words:
-        result += word + ' '
+    if len(phrase.split()) > 1:
+        words = phrase.split()
+        decrypted_words =[]
+        for word in words:
+            decrypted_syllable = ''
+            syllables = split(word)
 
+            for index, syllable in enumerate(syllables):
+                if index % 2 != 0 or syllable != inter_syllable:
+                    decrypted_syllable += syllable
+            decrypted_words.append(decrypted_syllable)
+
+        for word in decrypted_words:
+            result += word + ' '
+    else:
+        word = split(phrase)
+        for index, syllable in enumerate(word):
+            if index % 2 != 0 or syllable != inter_syllable:
+                result += syllable
+                
     return result.strip()
